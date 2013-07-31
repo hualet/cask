@@ -29,15 +29,21 @@ _(And ohh, don't forget to update your `.travis.yml` and `.gitignore` files)_
 
 To automatically install Cask, run this command:
 
-    curl -fsSkL https://raw.github.com/rejeep/cask.el/master/go | sh
+```bash
+$ curl -fsSkL https://raw.github.com/rejeep/cask.el/master/go | sh
+```
 
 You can also clone the repository.
 
-    $ git clone https://github.com/rejeep/cask.el.git
+```bash
+$ git clone https://github.com/rejeep/cask.el.git
+```
 
 Don't forget to add Cask's bin to your `PATH`.
 
-    $ export PATH="/path/to/code/cask/bin:$PATH"
+```bash
+$ export PATH="/path/to/code/cask/bin:$PATH"
+```
 
 
 ## Usage
@@ -45,30 +51,40 @@ Don't forget to add Cask's bin to your `PATH`.
 Create a file called `Cask` in your project root and specify
 dependencies:
 
-    $ cask init [--dev]
+```bash
+$ cask init [--dev]
+```
 
 _(Use `--dev` if the project is for package development)_
 
 To install all dependencies, run:
 
-    $ cask [install]
+```bash
+$ cask [install]
+```
 
 This will create a directory called `.cask`, containing all dependencies.
 
 To update package version, run:
 
-    $ cask update
+```bash
+$ cask update
+```
 
 To list all dependencies, run:
 
-    $ cask list
+```bash
+$ cask list
+```
 
 ### Emacs configuration
 
 Add this to your `.emacs` file.
 
-    (require 'cask "~/.cask/cask.el")
-    (cask-initialize)
+```lisp
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+```
 
 #### Tips
 
@@ -79,19 +95,27 @@ install from ELPA, check out <https://github.com/rdallasgray/pallet>.
 
 To create a `-pkg.el` file, run:
 
-    $ cask package
+```bash
+$ cask package
+```
 
 To run some Emacs Lisp code with ELPA load paths all set up for you, use:
 
-    $ cask exec [COMMAND]
+```bash
+$ cask exec [COMMAND]
+```
 
 Example:
 
-    $ cask exec make test
+```bash
+$ cask exec make test
+```
 
 To print info about the current project:
 
-    $ cask info
+```bash
+$ cask info
+```
 
 ## DSL
 
@@ -99,13 +123,17 @@ To print info about the current project:
 
 Add an ELPA mirror.
 
-    (source ALIAS)
-    (source NAME URL)
+```lisp
+(source ALIAS)
+(source NAME URL)
+```
 
 Example:
 
-    (source melpa)
-    (source "melpa" "http://melpa.milkbox.net/packages/")
+```lisp
+(source melpa)
+(source "melpa" "http://melpa.milkbox.net/packages/")
+```
 
 Available sources:
 
@@ -119,21 +147,29 @@ Available sources:
 
 Define this package (used only for package development).
 
-    (package NAME VERSION DESCRIPTION)
+```lisp
+(package NAME VERSION DESCRIPTION)
+```
 
 Example:
 
-    (package "ecukes" "0.2.1" "Cucumber for Emacs.")
+```lisp
+(package "ecukes" "0.2.1" "Cucumber for Emacs.")
+```
 
 ### depends-on
 
 Add a runtime dependency.
 
-    (depends-on NAME VERSION)
+```lisp
+(depends-on NAME VERSION)
+```
 
 Example:
 
-    (depends-on "magit" "0.8.1")
+```lisp
+(depends-on "magit" "0.8.1")
+```
 
 ### package-file
 
@@ -141,51 +177,65 @@ Define this package and its runtime dependencies from the package headers of a
 file (used only for package development).  The name of the file is relative to
 the directory containing the `Cask` file.
 
-    (package-file FILENAME)
+```lisp
+(package-file FILENAME)
+```
 
 Example:
 
-    (package-file "foo.el")
+```lisp
+(package-file "foo.el")
+```
 
 ### development
 
 Set scope to development dependencies.
 
-    (development [DEPENDENCIES])
+```lisp
+(development [DEPENDENCIES])
+```
 
 Example:
 
-    (development
-     (depends-on "ecukes" "0.2.1")
-     (depends-on "espuds" "0.1.0"))
+```lisp
+(development
+ (depends-on "ecukes" "0.2.1")
+ (depends-on "espuds" "0.1.0"))
+```
 
 ## Example
 
 ### Local Emacs installation
 
-    (source melpa)
+```lisp
+(source melpa)
 
-    (depends-on "magit")
-    (depends-on "drag-stuff")
-    (depends-on "wrap-region")
+(depends-on "magit")
+(depends-on "drag-stuff")
+(depends-on "wrap-region")
+```
 
 ### Package development
 
-    (source melpa)
+```lisp
+(source melpa)
 
-    (package "ecukes" "0.2.1" "Cucumber for Emacs.")
+(package "ecukes" "0.2.1" "Cucumber for Emacs.")
 
-    (depends-on "ansi")
+(depends-on "ansi")
 
-    (development
-     (depends-on "el-mock")
-     (depends-on "ert"))
+(development
+ (depends-on "el-mock")
+ (depends-on "ert"))
+```
 
 ## Completion
 
 To install ZSH completion add the following to your `~/.zshrc`:
 
-    source /path/to/code/cask/etc/cask_completion.zsh
+```bash
+source /path/to/code/cask/etc/cask_completion.zsh
+```
 
 ## I still don't get it, give me some real examples
 
@@ -210,24 +260,36 @@ Be sure to!
 
 For each make command below, prefix with:
 
-    $ EMACS="/path/to/emacs"
+```bash
+$ EMACS="/path/to/emacs"
+```
 
 For exmaple:
 
-    $ EMACS="/path/to/emacs" make abc
+```bash
+$ EMACS="/path/to/emacs" make abc
+```
 
 Run the unit tests with:
 
-    $ make unit
+```bash
+$ make unit
+```
 
 To run the Ecukes tests, first start the fake ELPA server:
 
-    $ make server
+```bash
+$ make server
+```
 
 Then to run the tests:
 
-    $ make ecukes
+```bash
+$ make ecukes
+```
 
 Run all tests with:
 
-    $ make
+```bash
+$ make
+```
